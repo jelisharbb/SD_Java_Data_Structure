@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 public class BalancedParentheses {
   public static void main (String[] args) {
@@ -31,5 +32,28 @@ public class BalancedParentheses {
     }
 
     return results;
+  }
+
+  public static boolean isBalanced(String parentheses) {
+    Stack<Character> stack = new Stack<>();
+
+    for (int i = 0; i < parentheses.length(); i++) {
+      char eachChar = parentheses.charAt(i);
+
+      if (eachChar == '(' || eachChar == '{' || eachChar == '[') {
+        stack.push(eachChar);
+      } else if (eachChar == ')' || eachChar == '}' || eachChar == ']') {
+          if (stack.isEmpty()) {
+            return false;
+          }
+
+          char topChar = stack.pop();
+          if ((eachChar == ')' && topChar != '(') || (eachChar == '}' && topChar != '{') || (eachChar == ']' && topChar != '[')) {
+            return false;
+          }
+      }
+    }
+
+    return stack.isEmpty();
   }
 }
